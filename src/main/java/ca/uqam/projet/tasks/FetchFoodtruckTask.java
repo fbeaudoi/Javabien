@@ -27,7 +27,7 @@ public class FetchFoodtruckTask
    
    @Autowired private FoodtruckRepository repository;
    
-   // initialise la BD au demarrage de l application
+   // initialise la BD au demarrage de l'application
    @Scheduled(initialDelay = 1000, fixedRate = Long.MAX_VALUE)
    public void initialize()
    {
