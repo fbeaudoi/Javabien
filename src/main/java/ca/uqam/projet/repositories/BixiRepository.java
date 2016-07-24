@@ -2,6 +2,7 @@
 package ca.uqam.projet.repositories;
 
 import ca.uqam.projet.resources.Bixi;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BixiRepository
 {
-   @Autowired private JdbcTemplate jdbcTemplate;
+   @Autowired private JdbcTemplate jdbcTemplate;;
    
    private static final String INSERT_STMT = 
            " INSERT INTO bixi (id, coordinates, name, nb_bikes, nb_empty_docks)"
@@ -24,7 +25,25 @@ public class BixiRepository
          + " ON conflict do nothing"
          ;
    
-   private static final
+   public void clearBixi()
+   {
+      jdbcTemplate.update("DELETE FROM bixi");
+   }
+   
+   public int insert(Bixi bixi)
+   {
+      return jdbcTemplate.update(conn -> 
+      {
+         PreparedStatement ps = conn.prepareStatement(INSERT_STMT);
+         ps.setInt   (1, bixi.getId());
+         ps.setDouble(2, bixi.getLongitude());
+         ps.setDouble(3, bixi.getLatitude());
+         ps.setString(4, bixi.getName());
+         ps.setInt   (5, bixi.getNbBikes());
+         ps.setInt   (6, bixi.getNbEmptyDocks());
+         return ps;
+      });
+   }
 }
 
 class BixiRowMapper implements RowMapper<Bixi>

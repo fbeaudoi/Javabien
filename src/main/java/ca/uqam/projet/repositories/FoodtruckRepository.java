@@ -2,6 +2,8 @@
 package ca.uqam.projet.repositories;
 
 import ca.uqam.projet.resources.Foodtruck;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,47 @@ public class FoodtruckRepository
            + "       foodtruck.truck_id = schedule.truck_id"
            + " WHERE schedule.date_debut >= ? AND schedule.date_fin <= ?"
            ;
+
+   public void clearFoodtruck()
+   {
+      jdbcTemplate.update("DELETE FROM schedule");
+      jdbcTemplate.update("DELETE FROM foodtruck");
+   }
+
+   public void insert(Foodtruck foodtruck)
+   {
+      _insertFoodtruckInfo(foodtruck);
+      _insertFoodtruckSchedule(foodtruck);
+   }
+
+   private int _insertFoodtruckInfo(Foodtruck foodtruck)
+   {
+      return jdbcTemplate.update(conn -> 
+      {
+         PreparedStatement ps = conn.prepareStatement(INSERT_FOODTRUCK_INFO_STMT);
+         ps.setString(1, foodtruck.getId());
+         ps.setString(2, foodtruck.getName());
+         ps.setString(3, foodtruck.getDescription());
+         ps.setString(4, foodtruck.getCamion());
+         return ps;
+      });
+   }
+
+   private int _insertFoodtruckSchedule(Foodtruck foodtruck)
+   {
+      return jdbcTemplate.update(conn ->
+      {
+         PreparedStatement ps = conn.prepareStatement(INSERT_SCHEDULE_STMT);
+         ps.setString(1, foodtruck.getId());
+         ps.setDate  (2, new java.sql.Date(foodtruck.getDate().getTime()));
+         ps.setString(3, foodtruck.getHeureDebut());
+         ps.setString(4, foodtruck.getHeureFin());
+         ps.setDouble(5, foodtruck.getLongitude());
+         ps.setDouble(6, foodtruck.getLatitude());
+         ps.setString(7, foodtruck.getLieu());
+         return ps;
+      });
+   }
 }
 
 class FoodtruckRowMapper implements RowMapper<Foodtruck>
@@ -60,7 +103,7 @@ class FoodtruckRowMapper implements RowMapper<Foodtruck>
        , rs.getString("name")
        , rs.getString("description")
        , rs.getString("camion")
-       , rs.getDate("date")
+       , rs.getDate  ("date")
        , rs.getString("heure_debut")
        , rs.getString("heure_fin")
        , rs.getDouble("longitude")
