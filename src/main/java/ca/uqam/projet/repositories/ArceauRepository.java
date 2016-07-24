@@ -20,8 +20,8 @@ public class ArceauRepository
    @Autowired private JdbcTemplate jdbcTemplate;
    
    private static final String INSERT_STMT = 
-           " INSERT INTO bixi (id, coordinates)"
-         + " VALUES (?, ST_SetSRID(ST_MakePoint(?, ?), 4326)"
+           " INSERT INTO arceau (id, coordinates)"
+         + " VALUES (?, ST_SetSRID(ST_MakePoint(?, ?), 4326))"
          + " ON conflict do nothing"
          ;
    

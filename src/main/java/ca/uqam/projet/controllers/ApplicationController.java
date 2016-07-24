@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ApplicationController {
 
-  @Autowired CitationRepository repository;
-
   @RequestMapping("/")
   public String index(Model model) {
-    model.addAttribute("citations", repository.findAll());
     return "index";
   }
 }

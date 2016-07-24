@@ -21,7 +21,7 @@ public class BixiRepository
    
    private static final String INSERT_STMT = 
            " INSERT INTO bixi (id, coordinates, name, nb_bikes, nb_empty_docks)"
-         + " VALUES (?, ST_SetSRID(ST_MakePoint(?, ?), 4326), ?, ?, ?"
+         + " VALUES (?, ST_SetSRID(ST_MakePoint(?, ?), 4326), ?, ?, ?)"
          + " ON conflict do nothing"
          ;
    

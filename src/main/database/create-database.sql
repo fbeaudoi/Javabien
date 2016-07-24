@@ -33,8 +33,8 @@ CREATE TABLE bixi
 	nb_empty_docks INTEGER
 );
 
-CREATE TABLE arceaux
+CREATE TABLE arceau
 (
 	id serial PRIMARY KEY,
-	coordinates geometry(POINT,4326) NOT NULL,
+	coordinates geometry(POINT,4326) NOT NULL
 );

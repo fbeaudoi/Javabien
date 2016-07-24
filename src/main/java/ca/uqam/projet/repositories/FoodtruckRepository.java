@@ -21,25 +21,25 @@ public class FoodtruckRepository
    @Autowired private JdbcTemplate jdbcTemplate;
    
    private static final String INSERT_FOODTRUCK_INFO_STMT = 
-           " INSERT INTO foodtruck (truck_id, name, description, camion)"
+           " INSERT INTO foodtruck (id, name, description, camion)"
          + " VALUES (?, ?, ?, ?)"
          + " on conflict do nothing"
          ;
    
    private static final String INSERT_SCHEDULE_STMT = 
-           " INSERT INTO schedule (truck_id, date, date_debut, date_fin, coordinates, lieu)"
+           " INSERT INTO schedule (id, date, heure_debut, heure_fin, coordinates, lieu)"
          + " VALUES (?, ?, ?, ?, ST_SetSRID(ST_MakePoint(?, ?), 4326), ?)"
          + " ON conflict do nothing"
          ;
    
    private static final String FIND_BY_DATE_RANGE_STMT =
            " SELECT"
-           + "    foodtruck.truck_id,"
+           + "    foodtruck.id,"
            + "    name,"
            + "    description,"
            + "    camion,"
-           + "    date_debut,"
-           + "    date_fin,"
+           + "    heure_debut,"
+           + "    heure_fin,"
            + "    ST_X(coordinates) as longitude,"
            + "    ST_Y(coordinates) as latitude,"
            + "    lieu"
@@ -48,7 +48,7 @@ public class FoodtruckRepository
            + "    INNER JOIN"
            + "       schedule"
            + "    ON"
-           + "       foodtruck.truck_id = schedule.truck_id"
+           + "       foodtruck.id = schedule.id"
            + " WHERE schedule.date_debut >= ? AND schedule.date_fin <= ?"
            ;
 
