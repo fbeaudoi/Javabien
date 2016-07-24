@@ -18,8 +18,8 @@ CREATE TABLE schedule
 (
 	id text NOT NULL REFERENCES foodtruck,
 	date DATE NOT NULL,
-	date_debut TIMESTAMP NOT NULL,
-	date_fin TIMESTAMP NOT NULL,
+	heure_debut text NOT NULL,
+	heure_fin text NOT NULL,
 	coordinates geometry(POINT,4326) NOT NULL,
 	lieu text
 );
@@ -27,7 +27,7 @@ CREATE TABLE schedule
 CREATE TABLE bixi
 (
 	id serial PRIMARY KEY,
-	coordinate geometry(POINT,4326) NOT NULL,
+	coordinates geometry(POINT,4326) NOT NULL,
 	name text,
 	nb_bikes INTEGER,
 	nb_empty_docks INTEGER
@@ -37,5 +37,4 @@ CREATE TABLE arceaux
 (
 	id serial PRIMARY KEY,
 	coordinates geometry(POINT,4326) NOT NULL,
-	parc text
 );
