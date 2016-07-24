@@ -69,29 +69,6 @@ public class FetchFoodtruckTask
    }
 }
 
-/*{ Json file structure 
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -73.568347,
-          45.503578
-        ]
-      },
-      "properties": {
-        "name": "",
-        "description": "",
-        "Date": "2016-07-02",
-        "Heure_debut": "11:00",
-        "Heure_fin": "16:00",
-        "Lieu": "Square Philipps",
-        "Camion": "Winneburger (Nouveau Palais)",
-        "Truckid": "T00240014"
-      }
-    }*/
 class FoodtruckCollection
 {
    @JsonProperty("features") Feature[] features;
