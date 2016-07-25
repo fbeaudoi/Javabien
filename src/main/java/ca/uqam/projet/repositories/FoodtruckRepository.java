@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,6 +39,7 @@ public class FoodtruckRepository
            + "    name,"
            + "    description,"
            + "    camion,"
+           + "    date,"
            + "    heure_debut,"
            + "    heure_fin,"
            + "    ST_X(coordinates) as longitude,"
@@ -56,6 +58,11 @@ public class FoodtruckRepository
    {
       jdbcTemplate.update("DELETE FROM schedule");
       jdbcTemplate.update("DELETE FROM foodtruck");
+   }
+   
+   public List<Foodtruck> findByDateRange(Date debut, Date fin)
+   {
+      return jdbcTemplate.query(FIND_BY_DATE_RANGE_STMT, new Object[]{debut, fin}, new FoodtruckRowMapper());
    }
 
    public void insert(Foodtruck foodtruck)

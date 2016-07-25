@@ -19,11 +19,17 @@ public class FoodtruckController
 {
    @Autowired FoodtruckRepository repository;
    
-   @RequestMapping("/horaires-camions/{Debut}/{Fin}")
+   @RequestMapping("/horaire-camions/{Debut}/{Fin}")
    public List<Foodtruck> findByDateRange(@PathVariable("Debut") String debut, @PathVariable("Fin") String fin) throws ParseException
    {
-      assert false : "Find by date range : NOT_YET_IMPLEMENTED";
-      return null; //repository.findByDateRange(debut, fin);
+      System.out.println("Find by date range : NOT_YET_IMPLEMENTED");
+      java.sql.Date dateDebut;
+      java.sql.Date dateFin;
+      
+      dateDebut = java.sql.Date.valueOf(debut);
+      dateFin = java.sql.Date.valueOf(fin);
+      
+      return repository.findByDateRange(dateDebut, dateFin);
    }
    
 }
