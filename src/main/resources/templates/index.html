@@ -13,7 +13,19 @@
       <div class="container-fluid">
          <div class="col-md-2">
             <h1>FoodTruck Montréal</h1>
-            <form method="get" onsubmit="return onResearchClick()">
+            <div>
+               <legend> Date debut:</legend>
+               <input type="date" id="dateDebut" />
+               <br/>
+               <legend> Date fin:</legend>
+               <input type="date" id="dateFin" />
+               <br/>
+               <button id="submitButton" class="btn btn-default" onclick = "onRechercherClick()">
+                  Rechercher
+               </button>
+               <p id="rechercheResult"></p>
+            </div>
+            <!--<form method="get" onsubmit="return onResearchClick()">
                <legend for="dateDebut">Date debut:</legend>
                <input type="date" id="dateDebut" />
                <br/>
@@ -23,7 +35,7 @@
                <button type="submit" id="submitButton" class="btn btn-default">
                   Rechercher
                </button>
-            </form>
+            </form> -->
          </div>
          <div id="mapid" class="col-md-10">
 

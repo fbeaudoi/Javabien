@@ -51,7 +51,7 @@ public class FoodtruckRepository
            + "       schedule"
            + "    ON"
            + "       foodtruck.id = schedule.id"
-           + " WHERE schedule.date_debut >= ? AND schedule.date_fin <= ?"
+           + " WHERE schedule.date >= ? AND schedule.date <= ?"
            ;
 
    public void clearFoodtruck()

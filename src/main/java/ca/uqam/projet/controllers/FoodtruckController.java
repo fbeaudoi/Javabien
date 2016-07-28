@@ -22,7 +22,6 @@ public class FoodtruckController
    @RequestMapping("/horaire-camions/{Debut}/{Fin}")
    public List<Foodtruck> findByDateRange(@PathVariable("Debut") String debut, @PathVariable("Fin") String fin) throws ParseException
    {
-      System.out.println("Find by date range : NOT_YET_IMPLEMENTED");
       java.sql.Date dateDebut;
       java.sql.Date dateFin;
       
