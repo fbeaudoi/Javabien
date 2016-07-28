@@ -5,6 +5,7 @@ import ca.uqam.projet.resources.Bixi;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -25,10 +26,25 @@ public class BixiRepository
          + " ON conflict do nothing"
          ;
    
+   private static final String FIND_ALL_AT_RANGE = 
+           " SELECT"
+           + "    nb_empty_docks,"
+           + "    id,"
+           + "    ST_X(coordinates) as longitude,"
+           + "    ST_Y(coordinates) as latitude,"
+           + "    name,"
+           + "    nb_bikes"
+           + " FROM"
+           + "    bixi"
+           + " WHERE"
+           + "    ST_DWithin(coordinates, ST_SetSRID(ST_MakePoint(?, ?), 4326), 200.0)"
+           ;
+   
    public void clearBixi()
    {
       jdbcTemplate.update("DELETE FROM bixi");
    }
+   
    
    public int insert(Bixi bixi)
    {
@@ -44,7 +60,14 @@ public class BixiRepository
          return ps;
       });
    }
+   
+   public List<Bixi> findAllAtRange(Double longitude, Double latitude)
+   {
+      return jdbcTemplate.query(FIND_ALL_AT_RANGE, new Object[] {longitude, latitude}, new BixiRowMapper());
+   }
 }
+
+
 
 class BixiRowMapper implements RowMapper<Bixi>
 {

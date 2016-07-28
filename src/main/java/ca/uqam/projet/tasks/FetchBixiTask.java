@@ -67,5 +67,5 @@ class Station
    @JsonProperty("lo") double longitude;
    @JsonProperty("la") double latitude;
    @JsonProperty("ba") int nbBikes;
-   @JsonProperty("dx") int nbEmptyDocks;
+   @JsonProperty("da") int nbEmptyDocks;
 }
